@@ -1,3 +1,15 @@
+## Getting started
+
+To be more productive, we highly recommend using our **[TypeScript](https://www.typescriptlang.org/)**
+bindings. This means you get code completion, type checking, inline docs,
+refactoring tools, etc.
+
+Here's a short teaser video showing the editor experience:
+
+[![Frida TypeScript demo](https://i.ytimg.com/vi/9cr4gOPFN4o/sddefault.jpg)](https://youtu.be/9cr4gOPFN4o)
+
+Clone **[this repo](https://github.com/oleavr/frida-agent-example)** to get started.
+
 ## Table of contents
 
 1. **Runtime information**
@@ -139,7 +151,9 @@
     rely on debugger-friendly binaries or presence of debug information to do a
     good job, whereas the fuzzy backtracers perform forensics on the stack in
     order to guess the return addresses, which means you will get false
-    positives, but it will work on any binary.
+    positives, but it will work on any binary. The generated backtrace is 
+    currently limited to 16 frames and is not adjustable without recompiling
+    Frida.
 
 {% highlight js %}
 const f = Module.getExportByName('libcommonCrypto.dylib',
@@ -2070,7 +2084,7 @@ Stalker.follow(mainThread.id, {
 
 {% highlight js %}
 const { NSSound } = ObjC.classes; /* macOS */
-ObjC.schedule(ObjC.mainQueue, function () {
+ObjC.schedule(ObjC.mainQueue, () => {
     const sound = NSSound.alloc().initWithContentsOfFile_byReference_("/Users/oleavr/.Trash/test.mp3", true);
     sound.play();
 });
@@ -2280,27 +2294,27 @@ const MyConnectionDelegateProxy = ObjC.registerClass({
     '- connection:didReceiveResponse:': {
       retType: 'void',
       argTypes: ['object', 'object'],
-      implementation: function (conn, resp) {
+      implementation(conn, resp) {
       }
     },
     /* Or grab it from an existing class: */
     '- connection:didReceiveResponse:': {
       types: ObjC.classes
           .Foo['- connection:didReceiveResponse:'].types,
-      implementation: function (conn, resp) {
+      implementation(conn, resp) {
       }
     },
     /* Or from an existing protocol: */
     '- connection:didReceiveResponse:': {
       types: ObjC.protocols.NSURLConnectionDataDelegate
           .methods['- connection:didReceiveResponse:'].types,
-      implementation: function (conn, resp) {
+      implementation(conn, resp) {
       }
     },
     /* Or write the signature by hand if you really want to: */
     '- connection:didReceiveResponse:': {
       types: 'v32@0:8@16@24',
-      implementation: function (conn, resp) {
+      implementation(conn, resp) {
       }
     }
   }
