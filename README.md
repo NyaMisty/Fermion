@@ -1,4 +1,4 @@
-![release](https://badgen.net/github/tag/FuzzySecurity/Fermion?label=Fermion%20Release&color=green&icon=atom) ![frida-node](https://badgen.net/badge/Frida-Node%20Version/v16.0.12/green?icon=typescript) ![stars](https://badgen.net/github/stars/FuzzySecurity/Fermion?color=cyan&label=Stars) ![forks](https://badgen.net/github/forks/FuzzySecurity/Fermion?color=cyan&label=Forks)
+![release](https://badgen.net/github/tag/FuzzySecurity/Fermion?label=Fermion%20Release&color=green&icon=atom) ![frida-node](https://badgen.net/badge/Frida-Node%20Version/v16.0.13/green?icon=typescript) ![stars](https://badgen.net/github/stars/FuzzySecurity/Fermion?color=cyan&label=Stars) ![forks](https://badgen.net/github/forks/FuzzySecurity/Fermion?color=cyan&label=Forks)
 
 # Fermion
 
