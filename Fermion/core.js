@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron');
+const {app, BrowserWindow, globalShortcut} = require('electron');
 const path = require('path');
 const ipcMain = require('electron').ipcMain;
 var bWin;
@@ -63,6 +63,25 @@ app.whenReady().then(() => {
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
+
+// Intercept the Ctrl-R & F5 everywhere, so that we don't trigger it accidentally
+app.on('browser-window-focus', function () {
+  globalShortcut.register("CommandOrControl+R", () => {
+      console.log("CommandOrControl+R is pressed: Shortcut Disabled");
+  });
+  globalShortcut.register("CommandOrControl+Shift+R", () => {
+    console.log("CommandOrControl+Shift+R is pressed: Shortcut Disabled");
+  });
+  globalShortcut.register("F5", () => {
+      console.log("F5 is pressed: Shortcut Disabled");
+  });
+});
+app.on('browser-window-blur', function () {
+  globalShortcut.unregister('CommandOrControl+R');
+  globalShortcut.unregister('CommandOrControl+Shift+R');
+  globalShortcut.unregister('F5');
+});
+
 
 // IPC listeners
 ipcMain.on('new-device', (event, message) => bWin.webContents.send('new-device', message));
