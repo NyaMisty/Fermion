@@ -12,6 +12,9 @@ on:
   schedule:
    - cron: "0 */4 * * *" # min hour day week year
 
+env:
+  PYTHONIOENCODING: utf-8
+  PYTHONUTF8: "1"
 defaults:
   run:
     shell: bash -x -e -c ". $0" "{0}"

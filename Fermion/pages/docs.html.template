@@ -1,0 +1,147 @@
+<html>
+
+<head>
+	<style>
+		body {
+            background-color: #E0E1E2 !important;
+            -webkit-app-region:drag !important;
+        }
+
+		th {
+            background: #767676 !important;
+			color: white !important;
+		}
+
+		div.barFrame {
+			user-select: none;
+			display:block;
+			position:fixed;
+			top:0;
+			width:100%;
+			height: 50px;
+		}
+
+		div.dataFrame {
+			-webkit-app-region:no-drag;
+			position:fixed;
+			top:40px;
+			margin-top: 8px; 
+			padding:4px;
+			overflow-x: hidden; 
+			overflow-x: auto; 
+			text-align:justify;
+			overflow-y:scroll;
+			height: 94vh;
+			width: 100%;
+        }
+  
+        .item_found {
+			background: yellow;
+			color: black;
+        }
+
+        .highlighted
+        {
+            background-color: yellow;
+        }
+
+        .highlight
+        {
+            background-color: #fff34d;
+            -moz-border-radius: 5px; /* FF1+ */
+            -webkit-border-radius: 5px; /* Saf3-4 */
+            border-radius: 5px; /* Opera 10.5, IE 9, Saf5, Chrome */
+            -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7); /* FF3.5+ */
+            -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7); /* Saf3.0+, Chrome */
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7); /* Opera 10.5+, IE 9.0 */
+        }
+
+        .highlight
+        {
+            padding: 1px 4px;
+            margin: 0 -4px;
+        }
+	</style>
+	<script type="text/javascript">
+		window.$ = window.jQuery = require('jquery');
+	</script>
+	<link rel="stylesheet" type="text/css" href="../src/frameworks/semantic/semantic.css">
+	<script src="../src/frameworks/semantic/semantic.js"></script>
+    <link rel="stylesheet" type="text/css" href="../src/screen.css">
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="barFrame">
+			<div style="background-color: #E0E1E2 !important;" class="ui top attached menu">
+				<button style="background: none;" class="ui icon button">
+					<i class="book dead icon"></i>
+				  </button>
+				  <p style="margin-top: 12px;">JS Docs</p>
+				<div class="right menu">
+          <div style="-webkit-app-region: no-drag; color: #676768;" class="ui action input">
+            <input id="FridaDocSearch" type="text" placeholder="Search">
+            <button class="ui button" onclick="docSearch()">Search</button>
+          </div>
+					<div class="ui dropdown icon item">
+						<a id="CloseDevice" style="-webkit-app-region: no-drag; color: #676768;" class="flex items-center pl-3 py-3 pr-2 text-gray-50 hover:bg-gray-100 rounded" href="#">
+							<span class="inline-block mr-3">
+							  <i class="x icon"></i></span>
+						  </a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="DataContainer" class="dataFrame">
+
+			<!--Window Content-->
+
+      <!-- FRIDA_DOC_REPLACE_MARKER -->
+
+      <!-- / Window Content-->
+			
+		</div>
+	</div>
+
+	<script type="text/javascript">
+    // Close dialog, make no changes to the device
+    document.getElementById("CloseDevice").onclick = function () {
+    	window.close();
+    }
+
+    // Implement custom search using "window.find"
+    // --> Yes this is rubbish, .. but more hacking less JS please
+    function docSearch() {
+      var searchTerm = document.getElementById("FridaDocSearch");
+      if (searchTerm.value && searchTerm.value.length > 0) {
+        findString(searchTerm.value);
+        s = window.getSelection();
+        oRange = s.getRangeAt(0);
+        oRect = oRange.getBoundingClientRect();
+        if (oRect.top != 0 && oRect.bottom != 0) {
+          document.getElementById("DataContainer").scrollTop = document.getElementById("DataContainer").scrollTop + oRect.top - 400;
+        }
+      }
+    }
+
+    // Also trigger search on enter
+    document.addEventListener("keydown", function (e) {
+    	if (e.keyCode == 13) {
+    		e.preventDefault();
+    		docSearch();
+    	}
+    }, false);
+
+    function findString(str) {
+      var bFound = window.find(str, false, false, true);
+      if (bFound) {
+        return true;
+      } else {
+        return false;
+      }
+        }
+	</script>
+</body>
+
+</html>
