@@ -319,6 +319,48 @@
 			// Init sorting
 			$('table').tablesort();
 
+			var TableFilter = require('tablefilter');
+			var tfConfig = {
+				base_path: 'tablefilter/',
+				alternate_rows: true,
+				btn_reset: false,
+				rows_counter: false,
+				loader: false,
+				status_bar: false,
+				no_results_message: true,
+				single_filter: {
+					// exclude_cols: [3, 4, 5, 6, 7, 8],
+					// css_class: 'form-control',
+				},
+				watermark: 'Search Process Name or PID...',
+				auto_filter: true,
+				// col_types: [
+				// 	'string', 'string', 'number',
+				// 	'number', 'number', 'number',
+				// 	'number', 'number', 'number'
+				// ],
+				// col_widths: [
+				// 	'180px', '120px', '120px',
+				// 	'100px', '100px', '100px',
+				// 	'100px', '100px', '100px'
+				// ],
+				// extensions: [{
+				// 	name: 'sort'
+				// }],
+
+				/** Bootstrap integration */
+
+				// aligns filter at cell bottom when Bootstrap is enabled
+				filters_cell_tag: 'th',
+
+				// // allows Bootstrap table styling
+				// themes: [{
+				// 	name: 'transparent'
+				// }]
+			};
+			var tf = new TableFilter(document.querySelector('.table'), tfConfig);
+			tf.init();
+
 			// Custom sort for PID
 			$('thead th.iPID').data(
 				'sortBy', 
