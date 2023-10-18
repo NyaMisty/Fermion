@@ -1,6 +1,6 @@
 {
   "name": "fermion",
-  "version": "1.9.2-frida16.1.4-gumjs18.4.3",
+  "version": "1.9.2-frida16.1.4-gumjs18.4.4",
   "description": "Fermion is a stand-alone Frida electron tool.",
   "main": "core.js",
   "scripts": {
@@ -11,7 +11,7 @@
   "license": "BSD-3-Clause",
   "dependencies": {
     "@electron/remote": "^2.0.0",
-    "@types/frida-gum": "^18.4.3",
+    "@types/frida-gum": "^18.4.4",
     "electron": "^21.3.3",
     "frida": "^16.1.4",
     "jquery": "3.6.0",
